@@ -38,6 +38,8 @@ int print_heXA(va_list);
 int print_un_int(va_list);
 int print_rev(va_list);
 int rot13(va_list);
+int nonPrintHex(va_list);
+int recur_hexad(unsigned int num, char *hex);
 
 /*functions needed*/
 unsigned int b_len(unsigned int nums, int b);
