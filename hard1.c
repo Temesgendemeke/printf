@@ -12,7 +12,7 @@ int nonPrintHex(va_list args)
 	char hexS[] = {'A', 'B', 'C', 'D', 'E', 'F'};
 	int i, head = 0;
 
-	str = va_arg(pull, char *);
+	str = va_arg(args, char *);
 	if (str == NULL)
 		str = "(null)";
 
