@@ -32,12 +32,19 @@ int print_perc(va_list);
 int print_int(va_list);
 int print_nums(va_list);
 int print_bin(va_list);
+int print_oct(va_list);
+int print_hexa(va_list);
+int print_heXA(va_list);
+int print_un_int(va_list);
+int print_rev(va_list);
+int rot13(va_list);
 
 /*functions needed*/
 unsigned int b_len(unsigned int nums, int b);
 char *nr_string(char *s);
 char *_memcpy(char *dest, char *src, unsigned int num);
 void _put_base(char *str);
+int if_hex(int nums, char x);
+int print_u_nums(unsigned int n);
 
 #endif
-

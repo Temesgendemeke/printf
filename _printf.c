@@ -13,6 +13,9 @@ int _printf(const char *format, ...)
 	frm_t choose[] = {{"c", print_c}, {"s", print_s},
 			{"%", print_perc}, {"d", print_int},
 			{"i", print_int}, {"b", print_bin},
+			{"o", print_oct}, {"x", print_hexa},
+			{"X", print_heXA}, {"u", print_un_int},
+			{"r", print_rev}, {"R", rot13},
 			{NULL, NULL}};
 	va_list args;
 
@@ -73,4 +76,60 @@ int scans(const char *format, va_list args, frm_t choose[])
 		i++;
 	}
 	return (chars);
+}
+
+/**
+ * print_rev - prints the reverse
+ * @args: arguments
+ * Return: chars printed
+*/
+
+int print_rev(va_list args)
+{
+	int length;
+	char *s;
+	char *p;
+
+	s = va_arg(args, char *);
+	if (s == NULL)
+		return (-1);
+	p = nr_string(s);
+	if (p == NULL)
+		return (-1);
+	for (length = 0; p[length] != '\0'; length++)
+		_putchar(p[length]);
+	free(p);
+	return (length);
+}
+
+/**
+ * rot13 - to rot13
+ * @args: the argument
+ * Return: no of conve string
+*/
+
+int rot13(va_list args)
+{
+	int i, j;
+	char *str;
+	char abyz[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	char nolm[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
+
+	str = va_arg(args, char *);
+	if (str == NULL)
+		return (-1);
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		for (j = 0; j <= 52; j++)
+		{
+			if (str[i] == abyz[j])
+			{
+				_putchar(nolm[j]);
+				break;
+			}
+		}
+		if (j == 53)
+			return (str[i]);
+	}
+	return (i);
 }
