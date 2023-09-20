@@ -79,3 +79,4 @@ unsigned int b_len(unsigned int nums, int b)
 		nums /= b;
 	return (i);
 }
+
