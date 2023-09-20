@@ -57,3 +57,36 @@ int print_rev(va_list args)
 	free(p);
 	return (length);
 }
+
+/**
+ * rot13 - to rot13
+ * @args: the argument
+ * Return: no of conve string
+*/
+
+int rot13(va_list args)
+{
+	int i, j;
+	char *str;
+	char in[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	char out[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
+
+	str = va_arg(list, char *);
+	if (str == NULL)
+		return (-1);
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		for (j = 0; j <= 52; j++)
+		{
+			if (str[i] == in[j])
+			{
+				_putchar(out[j]);
+				break;
+			}
+		}
+		if (j == 53)
+			_putchar(str[i]);
+	}
+	return (i);
+}
+
