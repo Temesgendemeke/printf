@@ -32,6 +32,30 @@ int print_nums(va_list args)
 		num %= div;
 		div /= 10;
 	}
+	return (length);
+}
 
+/**
+ * print_u_nums - prints unsigned number
+ * @n: unsigned no
+ * Return: length
+*/
+
+int print_u_nums(unsigned int n)
+{
+	int div, length;
+	unsigned int nums;
+
+	div = 1;
+	length = 0;
+	nums = n;
+	for (; nums / div > 9; )
+		div *= 10;
+	for (; div != 0;)
+	{
+		length += _putchar('0' + nums / div);
+		nums %= div;
+		div /= 10;
+	}
 	return (length);
 }

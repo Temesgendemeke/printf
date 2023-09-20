@@ -13,6 +13,8 @@ int _printf(const char *format, ...)
 	frm_t choose[] = {{"c", print_c}, {"s", print_s},
 			{"%", print_perc}, {"d", print_int},
 			{"i", print_int}, {"b", print_bin},
+			{"u", print_un_int}, {"o", print_oct},
+			{"x", print_hexa}, {"X", print_heXA},
 			{NULL, NULL}};
 	va_list args;
 

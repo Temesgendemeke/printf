@@ -57,3 +57,21 @@ int print_int(va_list args)
 	length = print_nums(args);
 	return (length);
 }
+
+/**
+ * print_un_int - prints unsigned int
+ * @args: arguments
+ * Return: no of nums
+*/
+
+int print_un_int(va_list args)
+{
+	unsigned int nums;
+
+	nums = va_arg(args, unsigned int);
+	if (nums == 0)
+		return (print_u_nums(nums));
+	if (nums < 1)
+		return (-1);
+	return (print_u_nums(nums));
+}
