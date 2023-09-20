@@ -36,6 +36,7 @@ int print_un_int(va_list);
 int print_oct(va_list);
 int print_hexa(va_list);
 int print_heXA(va_list);
+int nonPrintHex(va_list);
 
 /*functions needed*/
 unsigned int b_len(unsigned int nums, int b);
@@ -44,6 +45,7 @@ char *_memcpy(char *dest, char *src, unsigned int num);
 void _put_base(char *str);
 int print_u_nums(unsigned int n);
 int if_hex(int nums, char x);
+int recur_hexad(unsigned int num, char *hex);
 
 /*other functions*/
 int l_hex(unsigned long int num);
