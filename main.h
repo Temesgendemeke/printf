@@ -40,6 +40,7 @@ int print_rev(va_list);
 int rot13(va_list);
 int nonPrintHex(va_list);
 int recur_hexad(unsigned int num, char *hex);
+int print_address(va_list);
 
 /*functions needed*/
 unsigned int b_len(unsigned int nums, int b);

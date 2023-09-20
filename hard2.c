@@ -1,6 +1,20 @@
 #include "main.h"
 
 /**
+ * _strlen - get string length.
+ * @str: string.
+ * Return: length of string.
+*/
+int _strlen(const char *str)
+{
+	int i = 0;
+
+	while (str[i])
+		i++;
+	return (i);
+}
+
+/**
  * recur_hexad - recur
  * @num: number
  * @hex: hex pointer
@@ -49,4 +63,74 @@ int recur_hexad(unsigned int num, char *hex)
 	bytes += recur_hexad(num, hex);
 	bytes += _putchar(c);
 	return (bytes);
+}
+
+/**
+ * rotat_it - totates here
+ * @str: the string
+ * @rot: rotation of the earth
+ * @length: the len
+ */
+
+void rotat_it(char *rot, char *str, int length)
+{
+	int i;
+	char c;
+
+	for (i = 0; str[i]; i++)
+	{
+		c = str[i];
+		if (c >= 'a' && c <= 'z')
+		{
+			if (c + 13 > 'z')
+			{
+				c = 'z' - c;
+				c = 13 - c;
+				rot[i] = 'a' + c - 1;
+			}
+			else
+				rot[i] = c + 13;
+		}
+		else if (c >= 'A' && c <= 'Z')
+		{
+			if (c + 13 > 'Z')
+			{
+				c = 'Z' - c;
+				c = 13 - c;
+				rot[i] = 'A' + c - 1;
+			}
+			else
+				rot[i] = c + 13;
+		}
+		else
+			rot[i] = c;
+	}
+	rot[l] = '\0';
+	for (i = 0; rot[i]; i++)
+		_putchar(rot[i]);
+}
+
+/**
+ * rot13 - print by 13 rotated of
+ * @args: string.
+ * Return: byte written.
+ */
+
+int rot13(va_list args)
+{
+	char *str, *rot;
+	int length;
+
+	str = va_arg(args, char *);
+	if (str == NULL)
+		str = "(null)";
+
+	length = _strlen(str);
+	rot = malloc(sizeof(char) * (length + 1));
+	if (rot == NULL)
+		return (-1);
+
+	rotat_it(rot, str, length);
+	free(rot);
+	return (length);
 }
