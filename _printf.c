@@ -15,7 +15,7 @@ int _printf(const char *format, ...)
 			{"i", print_int}, {"b", print_bin},
 			{"o", print_oct}, {"x", print_hexa},
 			{"X", print_heXA}, {"u", print_un_int},
-			{"r", print_rev}, {"R", rot13},
+			 {"R", rot13},
 			{"S", nonPrintHex}, {"p", print_address},
 			{NULL, NULL}};
 	va_list args;
