@@ -34,3 +34,26 @@ int nonPrintHex(va_list args)
 	return (head);
 }
 
+/**
+ * print_rev - prints the reverse
+ * @args: arguments
+ * Return: chars printed
+*/
+
+int print_rev(va_list args)
+{
+	int length;
+	char *s;
+	char *p;
+
+	s = va_arg(args, char *);
+	if (s == NULL)
+		return (-1);
+	p = nr_string(s);
+	if (p == NULL)
+		return (-1);
+	for (length = 0; p[length] != '\0'; length++)
+		_putchar(p[length]);
+	free(p);
+	return (length);
+}

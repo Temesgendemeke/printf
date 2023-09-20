@@ -37,6 +37,7 @@ int print_oct(va_list);
 int print_hexa(va_list);
 int print_heXA(va_list);
 int nonPrintHex(va_list);
+int print_rev(va_list);
 
 /*functions needed*/
 unsigned int b_len(unsigned int nums, int b);
