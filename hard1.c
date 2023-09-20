@@ -75,7 +75,7 @@ int l_hex(unsigned long int num)
 	int byte = 0;
 	char hex[] = {'a', 'b', 'c', 'd', 'e', 'f'};
 
-	byte = recur_l_hexal(num, hex);
+	byte = recur_l_hex(num, hex);
 
 	return (byte);
 }

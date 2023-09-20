@@ -41,6 +41,7 @@ int rot13(va_list);
 int nonPrintHex(va_list);
 int recur_hexad(unsigned int num, char *hex);
 int print_address(va_list);
+int l_hex(unsigned long int num);
 
 /*functions needed*/
 unsigned int b_len(unsigned int nums, int b);
@@ -49,5 +50,6 @@ char *_memcpy(char *dest, char *src, unsigned int num);
 void _put_base(char *str);
 int if_hex(int nums, char x);
 int print_u_nums(unsigned int n);
+int recur_l_hex(unsigned long int nums, char *hex);
 
 #endif

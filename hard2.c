@@ -105,7 +105,7 @@ void rotat_it(char *rot, char *str, int length)
 		else
 			rot[i] = c;
 	}
-	rot[l] = '\0';
+	rot[length] = '\0';
 	for (i = 0; rot[i]; i++)
 		_putchar(rot[i]);
 }
