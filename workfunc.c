@@ -71,7 +71,7 @@ int rot13(va_list args)
 	char in[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	char out[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
 
-	str = va_arg(list, char *);
+	str = va_arg(args, char *);
 	if (str == NULL)
 		return (-1);
 	for (i = 0; str[i] != '\0'; i++)
