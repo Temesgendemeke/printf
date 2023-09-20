@@ -12,10 +12,3 @@ int _putchar(char c)
 	return (write(1, &c, 1));
 }
 
-/**
-int buffer(char c)
-{
-	static char store[1024];
-	static int i;
-}
-*/
