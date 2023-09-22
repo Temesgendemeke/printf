@@ -1,61 +1,130 @@
 #include "main.h"
 
 /**
- * print_nums - prints numbers
- * @args: the args
- * Return: the length
-*/
+ * _isdigit - checks if character is digit
+ * @c: the character to check
+ * Return: 1 or 0
+ */
 
-int print_nums(va_list args)
+int _isdigit(int c)
 {
-	int n, div, length;
-	unsigned int num;
-
-	n  = va_arg(args, int);
-	div = 1;
-	length = 0;
-
-	if (n < 0)
-	{
-		length += _putchar('-');
-		num = n * -1;
-	}
-	else
-		num = n;
-
-	for (; num / div > 9; )
-		div *= 10;
-
-	for (; div != 0; )
-	{
-		length += _putchar('0' + num / div);
-		num %= div;
-		div /= 10;
-	}
-	return (length);
+	return (c >= '0' && c <= '9');
 }
 
 /**
- * print_u_nums - prints unsigned number
- * @n: unsigned no
+ * _strlen - returns the length of a string
+ * @s: the string
  * Return: length
-*/
+ */
 
-int print_u_nums(unsigned int n)
+int _strlen(char *s)
 {
-	int div, length;
-	unsigned int nums;
+	int i = 0;
 
-	div = 1;
-	length = 0;
-	nums = n;
-	for (; nums / div > 9; )
-		div *= 10;
-	for (; div != 0;)
+	while (*s++)
+		i++;
+	return (i);
+}
+
+/**
+ * print_nums - prints a number
+ * @str: a string
+ * @params: the parameter
+ * Return: chars printed
+ */
+
+int print_nums(char *str, params_t *params)
+{
+	unsigned int i = _strlen(str);
+	int neg = (!params->unsign && *str == '-');
+
+	if (!params->precision && *str == '0' && !str[1])
+		str = "";
+	if (neg)
 	{
-		length += _putchar('0' + nums / div);
-		nums %= div;
-		div /= 10;
+		str++;
+		i--;
 	}
-	return (length);
+	if (params->precision != UINT_MAX)
+		while (i++ < params->precision)
+			*--str = '0';
+	if (neg)
+		*--str = '-';
+
+	if (!params->minus)
+		return (print_numrs(str, params));
+	else
+		return (print_numls(str, params));
+}
+
+/**
+ * print_numrs - prints a number
+ * @str: a string
+ * @params: the parameter
+ * Return: chars printed
+ */
+
+int print_numrs(char *str, params_t *params)
+{
+	unsigned int n = 0, neg, neg2, i = _strlen(str);
+	char pad_char = ' ';
+
+	if (params->zero && !params->minus)
+		pad_char = '0';
+	neg = neg2 = (!params->unsign && *str == '-');
+	if (neg && i < params->width && pad_char == '0' && !params->minus)
+		str++;
+	else
+		neg = 0;
+	if ((params->plus && !neg2) ||
+		(!params->plus && params->space && !neg2))
+		i++;
+	if (neg && pad_char == '0')
+		n += _putchar('-');
+	if (params->plus && !neg2 && pad_char == '0' && !params->unsign)
+		n += _putchar('+');
+	else if (!params->plus && params->space && !neg2 &&
+		!params->unsign && params->zero)
+		n += _putchar(' ');
+	while (i++ < params->width)
+		n += _putchar(pad_char);
+	if (neg && pad_char == ' ')
+		n += _putchar('-');
+	if (params->plus && !neg2 && pad_char == ' ' && !params->unsign)
+		n += _putchar('+');
+	else if (!params->plus && params->space && !neg2 &&
+		!params->unsign && !params->zero)
+		n += _putchar(' ');
+	n += _puts(str);
+	return (n);
+}
+
+/**
+ * print_numls - prints a number
+ * @str: a string
+ * @params: the parameter struct
+ * Return: chars printed
+ */
+
+int print_numls(char *str, params_t *params)
+{
+	unsigned int n = 0, neg, neg2, i = _strlen(str);
+	char pad_char = ' ';
+
+	if (params->zero && !params->minus)
+		pad_char = '0';
+	neg = neg2 = (!params->unsign && *str == '-');
+	if (neg && i < params->width && pad_char == '0' && !params->minus)
+		str++;
+	else
+		neg = 0;
+
+	if (params->plus && !neg2 && !params->unsign)
+		n += _putchar('+'), i++;
+	else if (params->space && !neg2 && !params->unsign)
+		n += _putchar(' '), i++;
+	n += _puts(str);
+	while (i++ < params->width)
+		n += _putchar(pad_char);
+	return (n);
 }

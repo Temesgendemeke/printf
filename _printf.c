@@ -1,80 +1,75 @@
 #include "main.h"
 
 /**
- * _printf - prints all the text and the formated ones
- * @format: string of chars
- * Return: no of chars printed
-*/
+ * _printf - like printf
+ * @format: the format string
+ * Return: number of bytes printed
+ */
 
 int _printf(const char *format, ...)
 {
-	int chars;
-
-	frm_t choose[] = {{"c", print_c}, {"s", print_s},
-			{"%", print_perc}, {"d", print_int},
-			{"i", print_int}, {"b", print_bin},
-			{"u", print_un_int}, {"o", print_oct},
-			{"x", print_hexa}, {"X", print_heXA},
-			{"S", nonPrintHex}, {"r", print_rev},
-			{"R", rot13},
-			{NULL, NULL}};
+	int sum = 0;
 	va_list args;
+	char *ptr, *start;
 
-	if (format == NULL)
-		return (-1);
+	params_t params = PARAMS_INIT;
 
 	va_start(args, format);
-	chars = scans(format, args, choose);
+
+	if (!format || (format[0] == '%' && !format[1]))
+		return (-1);
+	if (format[0] == '%' && format[1] == ' ' && !format[2])
+		return (-1);
+	for (ptr = (char *)format; *ptr; ptr++)
+	{
+		init_params(&params, args);
+		if (*ptr != '%')
+		{
+			sum += _putchar(*ptr);
+			continue;
+		}
+		start = ptr;
+		ptr++;
+		while (gets_flags(ptr, &params))
+		{
+			ptr++;
+		}
+		ptr = gets_width(ptr, &params, args);
+		ptr = gets_precision(ptr, &params, args);
+		if (gets_modifier(ptr, &params))
+			ptr++;
+		if (!scans(ptr))
+			sum += print_from_to(start, ptr,
+					params.l || params.h ? ptr - 1 : 0);
+		else
+			sum += gets_print_func(ptr, args, &params);
+	}
+	_putchar(BUFF_FLUSH);
 	va_end(args);
-	return (chars); /*needs to be modified later*/
+	return (sum);
 }
 
 /**
- * scans - just a scanner
- * @format: formatter
- * @args: list of arguments
- * @choose: choose
- * Return: err
-*/
+ * init_params - initiates parameters
+ * @params: the parameters
+ * @args: the argument
+ */
 
-int scans(const char *format, va_list args, frm_t choose[])
+void init_params(params_t *params, va_list args)
 {
-	int chars, j, ret_value;
-	int i = 0;
+	params->unsign = 0;
 
-	chars = 0;
-	while (format[i])
-	{
-		if (format[i] == '%')
-		{
-			for (j = 0; choose[j].c != NULL; j++)
-			{
-				if (format[i + 1] == choose[j].c[0])
-				{
-					ret_value = choose[j].f(args);
-					if (ret_value == -1)
-						return (-1);
-					chars += ret_value;
-					break;
-				}
-			}
-			if (choose[j].c == NULL && format[i + 1] != ' ')
-			{
-				if (format[i + 1] != '\0')
-				{
-					_putchar(format[i]);
-					_putchar(format[i + 1]);
-					chars += 2;
-				} else
-					return (-1);
-			}
-			i++;
-		} else
-		{
-			_putchar(format[i]);
-			chars++;
-		}
-		i++;
-	}
-	return (chars);
+	params->plus = 0;
+	params->space = 0;
+	params->hashtag = 0;
+	params->zero = 0;
+	params->minus = 0;
+
+	params->width = 0;
+	params->precision = UINT_MAX;
+
+	params->h = 0;
+	params->l = 0;
+	(void)args;
 }
+
