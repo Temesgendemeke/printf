@@ -9,4 +9,4 @@ mandatory
 6. How is the world ruled and led to war? Diplomats lie to journalists and believe these lies when they see them in print
 7. The big print gives and the small print takes away
 #advanced
-
+8. Sarcasm is lost in print
