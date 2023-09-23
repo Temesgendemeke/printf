@@ -3,112 +3,112 @@
 /**
  * print_char - prints character
  * @args: argument
- * @params: the parameters
+ * @para: the parameters
  * Return: chars printed
  */
 
-int print_char(va_list args, params_t *params)
+int print_char(va_list args, para_t *para)
 {
-	char pad_char = ' ';
-	unsigned int pad = 1, sum = 0, ch = va_arg(args, int);
+	char pads_chars = ' ';
+	unsigned int pads = 1, sums = 0, chrs = va_arg(args, int);
 
-	if (params->minus)
-		sum += _putchar(ch);
-	while (pad++ < params->width)
-		sum += _putchar(pad_char);
-	if (!params->minus)
-		sum += _putchar(ch);
-	return (sum);
+	if (para->minus)
+		sums += _putchar(chrs);
+	while (pads++ < para->width)
+		sums += _putchar(pads_chars);
+	if (!para->minus)
+		sums += _putchar(chrs);
+	return (sums);
 }
 
 /**
  * print_int - prints integer
  * @args: argument
- * @params: the parameters
+ * @para: the parameters
  * Return: chars printed
  */
 
-int print_int(va_list args, params_t *params)
+int print_int(va_list args, para_t *para)
 {
-	long l;
+	long lng;
 
-	if (params->l)
-		l = va_arg(args, long);
-	else if (params->h)
-		l = (short int)va_arg(args, int);
+	if (para->lng)
+		lng = va_arg(args, long);
+	else if (para->hei)
+		lng = (short int)va_arg(args, int);
 	else
-		l = (int)va_arg(args, int);
-	return (print_nums(conv(l, 10, 0, params), params));
+		lng = (int)va_arg(args, int);
+	return (print_nums(conv(lng, 10, 0, para), para));
 }
 
 /**
  * print_str - prints string
  * @args: argument
- * @params: the parameters
+ * @para: the parameters
  * Return: chars printed
  */
 
-int print_str(va_list args, params_t *params)
+int print_str(va_list args, para_t *para)
 {
-	char *str = va_arg(args, char *), pad_char = ' ';
-	unsigned int pad = 0, sum = 0, i = 0, j;
+	char *str = va_arg(args, char *), pads_chars = ' ';
+	unsigned int pads = 0, sums = 0, a = 0, b;
 
-	(void)params;
+	(void)para;
 	switch ((int)(!str))
 		case 1:
 			str = NULL_STRING;
 
-	j = pad = _strlen(str);
-	if (params->precision < pad)
-		j = pad = params->precision;
+	b = pads = _strlen(str);
+	if (para->precision < pads)
+		b = pads = para->precision;
 
-	if (params->minus)
+	if (para->minus)
 	{
-		if (params->precision != UINT_MAX)
-			for (i = 0; i < pad; i++)
-				sum += _putchar(*str++);
+		if (para->precision != UINT_MAX)
+			for (a = 0; a < pads; a++)
+				sums += _putchar(*str++);
 		else
-			sum += _puts(str);
+			sums += _puts(str);
 	}
-	while (j++ < params->width)
-		sum += _putchar(pad_char);
-	if (!params->minus)
+	while (b++ < para->width)
+		sums += _putchar(pads_chars);
+	if (!para->minus)
 	{
-		if (params->precision != UINT_MAX)
-			for (i = 0; i < pad; i++)
-				sum += _putchar(*str++);
+		if (para->precision != UINT_MAX)
+			for (a = 0; a < pads; a++)
+				sums += _putchar(*str++);
 		else
-			sum += _puts(str);
+			sums += _puts(str);
 	}
-	return (sum);
+	return (sums);
 }
 
 /**
  * print_perc - prints %
  * @args: argument
- * @params: the parameters
+ * @para: the parameters
  * Return: chars printed
  */
 
-int print_perc(va_list args, params_t *params)
+int print_perc(va_list args, para_t *para)
 {
 	(void)args;
-	(void)params;
+	(void)para;
 	return (_putchar('%'));
 }
 
 /**
- * print_S - custom format specifier
+ * print_S - format specifier
  * @args: argument
- * @params: the parameters
+ * @para: the parameters
  * Return: chars printed
  */
 
-int print_S(va_list args, params_t *params)
+int print_S(va_list args, para_t *para)
 {
 	char *str = va_arg(args, char *);
-	char *hex;
-	int sum = 0;
+	char *hexa;
+	int sums = 0;
 
 	if ((int)(!str))
 		return (_puts(NULL_STRING));
@@ -116,17 +116,17 @@ int print_S(va_list args, params_t *params)
 	{
 		if ((*str > 0 && *str < 32) || *str >= 127)
 		{
-			sum += _putchar('\\');
-			sum += _putchar('x');
-			hex = conv(*str, 16, 0, params);
-			if (!hex[1])
-				sum += _putchar('0');
-			sum += _puts(hex);
+			sums += _putchar('\\');
+			sums += _putchar('x');
+			hexa = conv(*str, 16, 0, para);
+			if (!hexa[1])
+				sums += _putchar('0');
+			sums += _puts(hexa);
 		}
 		else
 		{
-			sum += _putchar(*str);
+			sums += _putchar(*str);
 		}
 	}
-	return (sum);
+	return (sums);
 }

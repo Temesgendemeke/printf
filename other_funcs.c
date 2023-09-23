@@ -2,60 +2,60 @@
 
 /**
  * conv - converter
- * @num: number
- * @base: base
+ * @nu: number
+ * @b: base
  * @flags: flags
- * @params: paramater
+ * @para: paramater
  * Return: string
  */
 
-char *conv(long int num, int base, int flags, params_t *params)
+char *conv(long int nu, int b, int flags, para_t *para)
 {
-	static char *array;
-	static char buffer[50];
-	char sign = 0;
+	static char *arr;
+	static char buff[50];
+	char signs = 0;
 	char *ptr;
-	unsigned long n = num;
-	(void)params;
+	unsigned long no = nu;
+	(void)para;
 
-	if (!(flags & TO_UNSIGNED) && num < 0)
+	if (!(flags & TO_UNSIGNED) && nu < 0)
 	{
-		n = -num;
-		sign = '-';
+		no = -nu;
+		signs = '-';
 	}
-	array = flags & TO_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
-	ptr = &buffer[49];
+	arr = flags & TO_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
+	ptr = &buff[49];
 	*ptr = '\0';
 
 	do	{
-		*--ptr = array[n % base];
-		n /= base;
-	} while (n != 0);
+		*--ptr = arr[no % b];
+		no /= b;
+	} while (no != 0);
 
-	if (sign)
-		*--ptr = sign;
+	if (signs)
+		*--ptr = signs;
 	return (ptr);
 }
 
 /**
  * print_un_int - prints unsigned integer
  * @args: argument
- * @params: the parameters
+ * @para: the parameters
  * Return: bytes printed
  */
 
-int print_un_int(va_list args, params_t *params)
+int print_un_int(va_list args, para_t *para)
 {
-	unsigned long l;
+	unsigned long lng;
 
-	if (params->l)
-		l = (unsigned long)va_arg(args, unsigned long);
-	else if (params->h)
-		l = (unsigned short int)va_arg(args, unsigned int);
+	if (para->lng)
+		lng = (unsigned long)va_arg(args, unsigned long);
+	else if (para->hei)
+		lng = (unsigned short int)va_arg(args, unsigned int);
 	else
-		l = (unsigned int)va_arg(args, unsigned int);
-	params->unsign = 1;
-	return (print_nums(conv(l, 10, TO_UNSIGNED, params), params));
+		lng = (unsigned int)va_arg(args, unsigned int);
+	para->unsign = 1;
+	return (print_nums(conv(lng, 10, TO_UNSIGNED, para), para));
 }
 
 
@@ -63,20 +63,20 @@ int print_un_int(va_list args, params_t *params)
 /**
  * print_address - prints address
  * @args: argument
- * @params: the parameters struct
+ * @para: the parameters struct
  * Return: bytes printed
  */
 
-int print_address(va_list args, params_t *params)
+int print_address(va_list args, para_t *para)
 {
-	unsigned long int n = va_arg(args, unsigned long int);
+	unsigned long int no = va_arg(args, unsigned long int);
 	char *str;
 
-	if (!n)
+	if (!no)
 		return (_puts("(nil)"));
 
-	str = conv(n, 16, TO_UNSIGNED | TO_LOWERCASE, params);
+	str = conv(no, 16, TO_UNSIGNED | TO_LOWERCASE, para);
 	*--str = 'x';
 	*--str = '0';
-	return (print_nums(str, params));
+	return (print_nums(str, para));
 }

@@ -8,7 +8,7 @@
 
 int _puts(char *str)
 {
-	char *a = str;/*declaration of variables*/
+	char *a = str;
 
 	while (*str)
 		_putchar(*str++);
@@ -16,23 +16,22 @@ int _puts(char *str)
 }
 
 /**
- * _putchar - writes the character c to stdout
- * @c: The character to print
- * Return: On success 1.
- * On error, -1 is returned, and error is set appropriately.
+ * _putchar - character c to stdout
+ * @c: character to print
+ * Return: 1
  */
 
 int _putchar(int c)
 {
-	static int i;
+	static int a;
 	static char buff[BUFF_SIZE];
 
-	if (c == BUFF_FLUSH || i >= BUFF_SIZE)
+	if (c == BUFF_FLUSH || a >= BUFF_SIZE)
 	{
-		write(1, buff, i);
-		i = 0;
+		write(1, buff, a);
+		a = 0;
 	}
 	if (c != BUFF_FLUSH)
-		buff[i++] = c;
+		buff[a++] = c;
 	return (1);
 }

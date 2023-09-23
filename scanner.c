@@ -6,7 +6,7 @@
  * Return: bytes printed
  */
 
-int (*scans(char *s))(va_list args, params_t *params)
+int (*scans(char *s))(va_list args, para_t *para)
 {
 	frm_t choose[] = {
 		{"c", print_char},
@@ -17,8 +17,8 @@ int (*scans(char *s))(va_list args, params_t *params)
 		{"b", print_bins},
 		{"o", print_octs},
 		{"u", print_un_int},
-		{"x", print_hex},
-		{"X", print_HEX},
+		{"x", print_hexa},
+		{"X", print_HEXA},
 		{"p", print_address},
 		{"S", print_S},
 		{"r", print_rev},
@@ -43,27 +43,27 @@ int (*scans(char *s))(va_list args, params_t *params)
  * gets_print_func - finds format
  * @s: string
  * @args: argument pointer
- * @params: the parameters
+ * @para: the parameters
  * Return: bytes printed
  */
 
-int gets_print_func(char *s, va_list args, params_t *params)
+int gets_print_func(char *s, va_list args, para_t *para)
 {
-	int (*f)(va_list, params_t *) = scans(s);
+	int (*f)(va_list, para_t *) = scans(s);
 
 	if (f)
-		return (f(args, params));
+		return (f(args, para));
 	return (0);
 }
 
 /**
  * gets_flags - finds the flag
  * @s: the string
- * @params: the parameters
+ * @para: the parameters
  * Return: i
  */
 
-int gets_flags(char *s, params_t *params)
+int gets_flags(char *s, para_t *para)
 
 {
 	int i = 0;
@@ -71,19 +71,19 @@ int gets_flags(char *s, params_t *params)
 	switch (*s)
 	{
 		case '+':
-			i = params->plus = 1;
+			i = para->plus = 1;
 			break;
 		case ' ':
-			i = params->space = 1;
+			i = para->space = 1;
 			break;
 		case '#':
-			i = params->hashtag = 1;
+			i = para->hashtag = 1;
 			break;
 		case '-':
-			i = params->minus = 1;
+			i = para->minus = 1;
 			break;
 		case '0':
-			i = params->zero = 1;
+			i = para->zero = 1;
 			break;
 	}
 	return (i);
@@ -92,21 +92,21 @@ int gets_flags(char *s, params_t *params)
 /**
  * gets_modifier - finds the modifier
  * @s: string
- * @params: parameter
+ * @para: parameter
  * Return: 0
  */
 
-int gets_modifier(char *s, params_t *params)
+int gets_modifier(char *s, para_t *para)
 {
 	int i = 0;
 
 	switch (*s)
 	{
 		case 'h':
-			i = params->h = 1;
+			i = para->hei = 1;
 			break;
 		case 'l':
-			i = params->l = 1;
+			i = para->lng = 1;
 			break;
 	}
 	return (i);
@@ -115,25 +115,25 @@ int gets_modifier(char *s, params_t *params)
 /**
  * gets_width - gets the width
  * @s: string
- * @params: the parameters
+ * @para: the parameters
  * @args: the argument
  * Return: new pointer
  */
 
-char *gets_width(char *s, params_t *params, va_list args)
+char *gets_width(char *s, para_t *para, va_list args)
 {
-	int d = 0;
+	int z = 0;
 
 	if (*s == '*')
 	{
-		d = va_arg(args, int);
+		z = va_arg(args, int);
 		s++;
 	}
 	else
 	{
 		while (_isdigit(*s))
-			d = d * 10 + (*s++ - '0');
+			z = z * 10 + (*s++ - '0');
 	}
-	params->width = d;
+	para->width = z;
 	return (s);
 }

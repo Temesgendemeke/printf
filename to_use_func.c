@@ -1,109 +1,109 @@
 #include "main.h"
 
 /**
- * print_from_to - prints a range of char addresses
- * @start: starting address
- * @stop: stopping address
- * @except: except address
+ * print_fm_to - prints a range of char addresses
+ * @strt: strting address
+ * @stp: stpping address
+ * @excpt: excpt address
  * Return: bytes printed
  */
 
-int print_from_to(char *start, char *stop, char *except)
+int print_fm_to(char *strt, char *stp, char *excpt)
 {
-	int sum = 0;
+	int sums = 0;
 
-	while (start <= stop)
+	while (strt <= stp)
 	{
-		if (start != except)
-			sum += _putchar(*start);
-		start++;
+		if (strt != excpt)
+			sums += _putchar(*strt);
+		strt++;
 	}
-	return (sum);
+	return (sums);
 }
 
 /**
  * print_rev - prints string in reverse
  * @args: string
- * @params: the parameters
+ * @para: the parameters
  * Return: bytes printed
  */
 
-int print_rev(va_list args, params_t *params)
+int print_rev(va_list args, para_t *para)
 {
-	int len, sum = 0;
+	int length, sums = 0;
 	char *str = va_arg(args, char *);
-	(void)params;
+	(void)para;
 
 	if (str)
 	{
-		for (len = 0; *str; str++)
-			len++;
+		for (length = 0; *str; str++)
+			length++;
 		str--;
-		for (; len > 0; len--, str--)
-			sum += _putchar(*str);
+		for (; length > 0; length--, str--)
+			sums += _putchar(*str);
 	}
-	return (sum);
+	return (sums);
 }
 
 /**
  * print_rot13 - prints string in rot13
  * @args: string
- * @params: the parameters
+ * @para: the parameters
  * Return: bytes printed
  */
 
-int print_rot13(va_list args, params_t *params)
+int print_rot13(va_list args, para_t *para)
 {
-	int i, index;
-	int count = 0;
-	char arr[] =
+	int i, ind;
+	int count1 = 0;
+	char arrs[] =
 		"NOPQRSTUVWXYZABCDEFGHIJKLM      nopqrstuvwxyzabcdefghijklm";
 	char *a = va_arg(args, char *);
-	(void)params;
+	(void)para;
 
 	i = 0;
-	index = 0;
+	ind = 0;
 	while (a[i])
 	{
 		if ((a[i] >= 'A' && a[i] <= 'Z')
 		    || (a[i] >= 'a' && a[i] <= 'z'))
 		{
-			index = a[i] - 65;
-			count += _putchar(arr[index]);
+			ind = a[i] - 65;
+			count1 += _putchar(arrs[ind]);
 		}
 		else
-			count += _putchar(a[i]);
+			count1 += _putchar(a[i]);
 		i++;
 	}
-	return (count);
+	return (count1);
 }
 
 /**
  * gets_precision - gets the precision
  * @s: thestring
- * @params: the parameters
+ * @para: the parameters
  * @args: the argument
  * Return: new pointer
 */
 
-char *gets_precision(char *s, params_t *params, va_list args)
+char *gets_precision(char *s, para_t *para, va_list args)
 {
-	int d = 0;
+	int z = 0;
 
 	if (*s != '.')
 		return (s);
 	s++;
 	if (*s == '*')
 	{
-		d = va_arg(args, int);
+		z = va_arg(args, int);
 		s++;
 	}
 	else
 	{
 		while (_isdigit(*s))
-			d = d * 10 + (*s++ - '0');
+			z = z * 10 + (*s++ - '0');
 	}
-	params->precision = d;
+	para->precision = z;
 	return (s);
 }
 

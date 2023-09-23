@@ -3,16 +3,16 @@
 /**
  * _printf - like printf
  * @format: the format string
- * Return: number of bytes printed
+ * Return: bytes printed
  */
 
 int _printf(const char *format, ...)
 {
-	int sum = 0;
+	int sums = 0;
 	va_list args;
-	char *ptr, *start;
+	char *ptr, *strt;
 
-	params_t params = PARAMS_INIT;
+	para_t para = PARA_INIT;
 
 	va_start(args, format);
 
@@ -22,54 +22,54 @@ int _printf(const char *format, ...)
 		return (-1);
 	for (ptr = (char *)format; *ptr; ptr++)
 	{
-		init_params(&params, args);
+		init_para(&para, args);
 		if (*ptr != '%')
 		{
-			sum += _putchar(*ptr);
+			sums += _putchar(*ptr);
 			continue;
 		}
-		start = ptr;
+		strt = ptr;
 		ptr++;
-		while (gets_flags(ptr, &params))
+		while (gets_flags(ptr, &para))
 		{
 			ptr++;
 		}
-		ptr = gets_width(ptr, &params, args);
-		ptr = gets_precision(ptr, &params, args);
-		if (gets_modifier(ptr, &params))
+		ptr = gets_width(ptr, &para, args);
+		ptr = gets_precision(ptr, &para, args);
+		if (gets_modifier(ptr, &para))
 			ptr++;
 		if (!scans(ptr))
-			sum += print_from_to(start, ptr,
-					params.l || params.h ? ptr - 1 : 0);
+			sums += print_fm_to(strt, ptr,
+					para.lng || para.hei ? ptr - 1 : 0);
 		else
-			sum += gets_print_func(ptr, args, &params);
+			sums += gets_print_func(ptr, args, &para);
 	}
 	_putchar(BUFF_FLUSH);
 	va_end(args);
-	return (sum);
+	return (sums);
 }
 
 /**
- * init_params - initiates parameters
- * @params: the parameters
+ * init_para - initiates parameters
+ * @para: the parameters
  * @args: the argument
  */
 
-void init_params(params_t *params, va_list args)
+void init_para(para_t *para, va_list args)
 {
-	params->unsign = 0;
+	para->unsign = 0;
 
-	params->plus = 0;
-	params->space = 0;
-	params->hashtag = 0;
-	params->zero = 0;
-	params->minus = 0;
+	para->plus = 0;
+	para->space = 0;
+	para->hashtag = 0;
+	para->zero = 0;
+	para->minus = 0;
 
-	params->width = 0;
-	params->precision = UINT_MAX;
+	para->width = 0;
+	para->precision = UINT_MAX;
 
-	params->h = 0;
-	params->l = 0;
+	para->hei = 0;
+	para->lng = 0;
 	(void)args;
 }
 

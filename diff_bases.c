@@ -3,106 +3,106 @@
 /**
  * print_bins - prints binary number
  * @args: the argument pointer
- * @params: the parameters
+ * @para: the parameters
  * Return: bytes printed
  */
 
-int print_bins(va_list args, params_t *params)
+int print_bins(va_list args, para_t *para)
 {
-	unsigned int n = va_arg(args, unsigned int);
-	char *str = conv(n, 2, TO_UNSIGNED, params);
+	unsigned int no = va_arg(args, unsigned int);
+	char *str = conv(no, 2, TO_UNSIGNED, para);
 	int c = 0;
 
-	if (params->hashtag && n)
+	if (para->hashtag && no)
 		*--str = '0';
-	params->unsign = 1;
-	return (c += print_nums(str, params));
+	para->unsign = 1;
+	return (c += print_nums(str, para));
 }
 
 /**
  * print_octs - prints octal numbers
  * @args: the argument
- * @params: the parameters
+ * @para: the parameters
  * Return: bytes printed
  */
 
-int print_octs(va_list args, params_t *params)
+int print_octs(va_list args, para_t *para)
 {
-	unsigned long l;
+	unsigned long lng;
 	char *str;
 	int c = 0;
 
-	if (params->l)
-		l = (unsigned long)va_arg(args, unsigned long);
-	else if (params->h)
-		l = (unsigned short int)va_arg(args, unsigned int);
+	if (para->lng)
+		lng = (unsigned long)va_arg(args, unsigned long);
+	else if (para->hei)
+		lng = (unsigned short int)va_arg(args, unsigned int);
 	else
-		l = (unsigned int)va_arg(args, unsigned int);
-	str = conv(l, 8, TO_UNSIGNED, params);
+		lng = (unsigned int)va_arg(args, unsigned int);
+	str = conv(lng, 8, TO_UNSIGNED, para);
 
-	if (params->hashtag && l)
+	if (para->hashtag && lng)
 		*--str = '0';
-	params->unsign = 1;
-	return (c += print_nums(str, params));
+	para->unsign = 1;
+	return (c += print_nums(str, para));
 }
 
 
 /**
- * print_hex - hexs in lowercase
+ * print_hexa - hexs in lowercase
  * @args: the argument pointer
- * @params: the parameters
+ * @para: the parameters
  * Return: bytes printed
  */
 
-int print_hex(va_list args, params_t *params)
+int print_hexa(va_list args, para_t *para)
 {
-	unsigned long l;
+	unsigned long lng;
 	int c = 0;
 	char *str;
 
-	if (params->l)
-		l = (unsigned long)va_arg(args, unsigned long);
-	else if (params->h)
-		l = (unsigned short int)va_arg(args, unsigned int);
+	if (para->lng)
+		lng = (unsigned long)va_arg(args, unsigned long);
+	else if (para->hei)
+		lng = (unsigned short int)va_arg(args, unsigned int);
 	else
-		l = (unsigned int)va_arg(args, unsigned int);
+		lng = (unsigned int)va_arg(args, unsigned int);
 
-	str = conv(l, 16, TO_UNSIGNED | TO_LOWERCASE, params);
-	if (params->hashtag && l)
+	str = conv(lng, 16, TO_UNSIGNED | TO_LOWERCASE, para);
+	if (para->hashtag && lng)
 	{
 		*--str = 'x';
 		*--str = '0';
 	}
-	params->unsign = 1;
-	return (c += print_nums(str, params));
+	para->unsign = 1;
+	return (c += print_nums(str, para));
 }
 
 /**
- * print_HEX - hexs in uppercase
+ * print_HEXA - hexs in uppercase
  * @args: the argument pointer
- * @params: the parameters
+ * @para: the parameters
  * Return: bytes printed
  */
 
-int print_HEX(va_list args, params_t *params)
+int print_HEXA(va_list args, para_t *para)
 {
-	unsigned long l;
+	unsigned long lng;
 	int c = 0;
 	char *str;
 
-	if (params->l)
-		l = (unsigned long)va_arg(args, unsigned long);
-	else if (params->h)
-		l = (unsigned short int)va_arg(args, unsigned int);
+	if (para->lng)
+		lng = (unsigned long)va_arg(args, unsigned long);
+	else if (para->hei)
+		lng = (unsigned short int)va_arg(args, unsigned int);
 	else
-		l = (unsigned int)va_arg(args, unsigned int);
+		lng = (unsigned int)va_arg(args, unsigned int);
 
-	str = conv(l, 16, TO_UNSIGNED, params);
-	if (params->hashtag && l)
+	str = conv(lng, 16, TO_UNSIGNED, para);
+	if (para->hashtag && lng)
 	{
 		*--str = 'X';
 		*--str = '0';
 	}
-	params->unsign = 1;
-	return (c += print_nums(str, params));
+	para->unsign = 1;
+	return (c += print_nums(str, para));
 }
