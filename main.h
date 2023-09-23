@@ -50,7 +50,6 @@ typedef struct parameters
 
 /**
  * struct choosing - Struct to choose
- *
  * @c: formats
  * @f: The function associated
  */
